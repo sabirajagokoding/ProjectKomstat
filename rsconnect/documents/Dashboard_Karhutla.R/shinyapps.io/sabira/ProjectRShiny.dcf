@@ -1,0 +1,13 @@
+name: ProjectRShiny
+title: ProjectRShiny
+username: sabira
+account: sabira
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 15066524
+bundleId: 10616455
+url: https://sabira.shinyapps.io/ProjectRShiny/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: pdf/LAPORAN PROGRESS PROJECT R SHINY KELOMPOK 4.pdf|pdf/Proposal RShiny Kelompok 4 (Final).pdf|pdf/Proposal RShiny Kelompok 4.pdf|video/wo_subtitle.mp4

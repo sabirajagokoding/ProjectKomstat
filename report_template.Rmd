@@ -1,0 +1,70 @@
+
+---
+title: "Laporan Analisis Regresi Linier"
+output: html_document
+params:
+  data: NULL
+  model: NULL
+  yvar: NULL
+  xvar: NULL
+  asumsi: NULL
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+library(broom)
+library(ggplot2)
+```
+
+## 📊 Ringkasan Model
+
+**Model Regresi:**  
+Respon: `r params$yvar`  
+Prediktor: `r paste(params$xvar, collapse = ", ")`
+
+**Ringkasan Statistik Model:**
+
+```{r}
+summary(params$model)
+```
+
+**Persamaan Regresi:**
+
+```{r}
+coef <- round(coef(params$model), 3)
+xvars <- names(coef)[-1]
+intercept <- coef[1]
+terms <- paste0(coef[-1], xvars, collapse = " + ")
+cat(params$yvar, " = ", intercept, " + ", terms)
+```
+
+## ✅ Uji Asumsi Regresi
+
+**Hipotesis:**
+
+- Normalitas residual:  
+  $H_0$: Residual berdistribusi normal  
+  $H_1$: Residual tidak berdistribusi normal  
+
+- Homoskedastisitas:  
+  $H_0$: Varians residual konstan  
+  $H_1$: Varians residual tidak konstan  
+
+- Autokorelasi residual:  
+  $H_0$: Tidak terdapat autokorelasi  
+  $H_1$: Terdapat autokorelasi  
+
+**Hasil Pengujian:**
+
+```{r}
+asumsi <- params$asumsi
+data.frame(
+  Asumsi = c("Normalitas", "Homoskedastisitas", "Autokorelasi", "Multikolinearitas"),
+  Status = c(
+    if (is.null(asumsi$normalitas)) "—" else if (asumsi$normalitas) "✅ Lolos" else "❌ Tidak Lolos",
+    if (is.null(asumsi$homoskedastisitas)) "—" else if (asumsi$homoskedastisitas) "✅ Lolos" else "❌ Tidak Lolos",
+    if (is.null(asumsi$autokorelasi)) "—" else if (asumsi$autokorelasi) "✅ Lolos" else "❌ Tidak Lolos",
+    if (is.null(asumsi$multikolinearitas)) "— (Prediktor tunggal)" else if (asumsi$multikolinearitas) "✅ Lolos" else "❌ Tidak Lolos"
+  )
+)
+```
