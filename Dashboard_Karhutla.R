@@ -2813,7 +2813,7 @@ ui <- dashboardPage(
         paste0("data_emisi_", Sys.Date(), ".csv")
       },
       content = function(file) {
-        write.csv(emisi_data, file, row.names = FALSE)
+        write.csv(carbon_data, file, row.names = FALSE)
       }
     )
     
@@ -2831,7 +2831,7 @@ ui <- dashboardPage(
         paste0("data_suhu_", Sys.Date(), ".csv")
       },
       content = function(file) {
-        write.csv(suhu_data, file, row.names = FALSE)
+        write.csv(temp_data, file, row.names = FALSE)
       }
     )
     output$download_geojson <- downloadHandler(
